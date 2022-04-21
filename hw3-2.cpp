@@ -10,8 +10,8 @@ using namespace std;
 // Node class
 class Node{
 public:
-	char data;
-	int freq;
+	char data='#';
+	int freq=-1;
 	Node* left=nullptr;
 	Node* right=nullptr;
 };
@@ -53,14 +53,26 @@ void build_char_arr(Letter*& arr, int* alphabet){
 	return;
 }
 
-// build tree
 
-// analyze encoding code
 
 // print result
+void result(int c_count, Letter* arr){
+	// print input array in format way
+	cout<<"Symbol: ";
+	for(int i=0;i<c_count;i++){
+		cout<<arr[i].data<<" ";
+	}
+	cout<<"\nFrequency: ";
+	for(int i=0;i<c_count;i++){
+		cout<<arr[i].count<<" ";
+	}
+	cout<<"\nHuffman Tree:\n";
+	
+	return;
+}
 
 // all function combination
-huffman_coding(){
+void huffman_coding(){
 	/*--------------------Prepararion---------------------*/
 	string str, code; // str: input string / code: huffman code
 	str="ccccccbbbaadddddddeeeeeeeeee";
@@ -70,6 +82,8 @@ huffman_coding(){
 	Letter* arr=new Letter[char_count]; // different letter's count & symbol
 	build_char_arr(arr, alphabet);
 	
+	result(char_count, arr);
+	return;
 }
 
 int main(){
