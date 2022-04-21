@@ -1,1 +1,1 @@
-# hw3-2_huffman_coding
+# HW3_huffman_coding
