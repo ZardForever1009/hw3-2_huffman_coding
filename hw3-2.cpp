@@ -135,7 +135,7 @@ bool level_order_traversal(Node* root, int level){
 	if (root==nullptr){
         return false;
     }
-    if (level==0){
+    if (level==1){
         return true;
     }
     bool left=level_order_traversal(root->left, level-1);
@@ -161,7 +161,7 @@ void inorder_traversal(Node* root){
 
 // tree level counter
 int level_counter(Node* root){
-	int level=0;
+	int level=1;
 	while(level_order_traversal(root, level)){
 		level++;
 	}
