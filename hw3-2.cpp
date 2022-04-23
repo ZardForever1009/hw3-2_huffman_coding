@@ -16,14 +16,7 @@ public:
 	Node* right=nullptr;
 };
 
-// Letters class
-class Letter{
-public:
-	char data='#';
-	int count=-1;
-};
-
-// differnet letters of input string analyze 
+// differnet letters' counts of input string analyze 
 int diff_char_count(string str, int*& alphabet){
 	// from 'a' to 'z' check freq
 	int char_count=0;
@@ -40,23 +33,21 @@ int diff_char_count(string str, int*& alphabet){
 	return char_count;
 }
 
-// build non-zero char arr
-void build_char_arr(Letter*& arr, int* alphabet){
+// build non-zero char arr (place symbols & data to array)
+void build_node_arr(Node*& arr, int* alphabet){
 	int idx=0;
 	for(int i=0;i<26;i++){
 		if(alphabet[i]!=0){
 			arr[idx].data=char(i+97);
-			arr[idx].count=alphabet[i];
+			arr[idx].freq=alphabet[i];
 			idx++;
 		}
 	}
 	return;
 }
 
-
-
-// print result
-void result(int c_count, Letter* arr){
+// print input string result
+void str_result(int c_count, Node* arr){
 	// print input array in format way
 	cout<<"Symbol: ";
 	for(int i=0;i<c_count;i++){
@@ -64,8 +55,23 @@ void result(int c_count, Letter* arr){
 	}
 	cout<<"\nFrequency: ";
 	for(int i=0;i<c_count;i++){
-		cout<<arr[i].count<<" ";
+		cout<<arr[i].freq<<" ";
 	}
+	return;
+}
+
+// rebuild array to normal form (filled empty element with data '~')
+void normalize_arr(Node*& arr){
+	
+}
+
+// get minimum frequency node out of array
+Node* min_freq_node(int c_count, Node*& arr ){
+	
+}
+
+// print huffman tree result
+void huffman_result(){
 	cout<<"\nHuffman Tree:\n";
 	
 	return;
@@ -75,14 +81,17 @@ void result(int c_count, Letter* arr){
 void huffman_coding(){
 	/*--------------------Prepararion---------------------*/
 	string str, code; // str: input string / code: huffman code
+	/* cin>>str; */
+	/* cin>>code; */
 	str="ccccccbbbaadddddddeeeeeeeeee";
 	code="110011000001";
 	int* alphabet=new int[26]; // store letters' appearance counts
-	int char_count=diff_char_count(str, alphabet); // different letters' counts
-	Letter* arr=new Letter[char_count]; // different letter's count & symbol
-	build_char_arr(arr, alphabet);
+	int symbol_count=diff_char_count(str, alphabet); // different letters' counts
+	Node* arr=new Node[symbol_count]; // create Node array
+	build_node_arr(arr, alphabet);
+	str_result(symbol_count, arr);
 	
-	result(char_count, arr);
+	huffman_result();
 	return;
 }
 
