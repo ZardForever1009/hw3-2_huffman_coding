@@ -11,7 +11,7 @@ using namespace std;
 class Node{
 public:
 	char data='#';
-	int freq=-1;
+	int freq=100000;
 	Node* left=nullptr;
 	Node* right=nullptr;
 };
@@ -47,32 +47,56 @@ void build_node_arr(Node*& arr, int* alphabet){
 }
 
 // print input string result
-void str_result(int c_count, Node* arr){
+void str_result(int symbol_count, Node* arr){
 	// print input array in format way
 	cout<<"Symbol: ";
-	for(int i=0;i<c_count;i++){
+	for(int i=0;i<symbol_count;i++){
 		cout<<arr[i].data<<" ";
 	}
 	cout<<"\nFrequency: ";
-	for(int i=0;i<c_count;i++){
+	for(int i=0;i<symbol_count;i++){
 		cout<<arr[i].freq<<" ";
 	}
+	cout<<endl;
 	return;
 }
 
 // rebuild array to normal form (filled empty element with data '~')
-void normalize_arr(Node*& arr){
-	
+void refactor_arr(int symbol_count, Node*& arr){
+	for(int i;i<symbol_count-1;i++){
+		if(arr[i].data=='~'){
+			swap(arr[i], arr[i+1]);
+		}
+	}
+	return;
 }
 
 // get minimum frequency node out of array
-Node* min_freq_node(int c_count, Node*& arr ){
+Node* min_freq_node(int symbol_count, Node*& arr){
+	Node* min_node=new Node();
+	// find the minimum freq node
+	int idx=0;
+	for(int i=0;i<symbol_count;i++){
+		if((arr[i].freq<min_node->freq)&&(arr[i].data!='~')){
+			*min_node=arr[i];
+			idx=i; // reset array item index
+		}
+	}
+	arr[idx].data='~'; // reset arr[i]
+	arr[idx].freq=100000;
+	// refactor array
+	refactor_arr(symbol_count, arr);
+	return min_node;
+}
+
+// build huffman tree
+void build_huffman_tree(int symbol_count, Node*& arr){
 	
 }
 
 // print huffman tree result
 void huffman_result(){
-	cout<<"\nHuffman Tree:\n";
+	cout<<"Huffman Tree:\n";
 	
 	return;
 }
@@ -83,12 +107,25 @@ void huffman_coding(){
 	string str, code; // str: input string / code: huffman code
 	/* cin>>str; */
 	/* cin>>code; */
-	str="ccccccbbbaadddddddeeeeeeeeee";
+	str="ccccccbbbaadddddddeeeeeeeeeevgsdfvdjsfhdsfhdsfhdsfh";
 	code="110011000001";
 	int* alphabet=new int[26]; // store letters' appearance counts
 	int symbol_count=diff_char_count(str, alphabet); // different letters' counts
 	Node* arr=new Node[symbol_count]; // create Node array
 	build_node_arr(arr, alphabet);
+	str_result(symbol_count, arr);
+	
+	cout<<min_freq_node(symbol_count, arr)->data<<endl;
+	str_result(symbol_count, arr);
+	cout<<min_freq_node(symbol_count, arr)->data<<endl;
+	str_result(symbol_count, arr);
+	cout<<min_freq_node(symbol_count, arr)->data<<endl;
+	str_result(symbol_count, arr);
+	cout<<min_freq_node(symbol_count, arr)->data<<endl;
+	str_result(symbol_count, arr);
+	cout<<min_freq_node(symbol_count, arr)->data<<endl;
+	str_result(symbol_count, arr);
+	cout<<min_freq_node(symbol_count, arr)->data<<endl;
 	str_result(symbol_count, arr);
 	
 	huffman_result();
