@@ -184,6 +184,34 @@ void encode(Node* root, string& str){
 	str.pop_back();
 }
 
+// decode 
+void decode(Node* root, string code){
+	Node* reset=root;
+	for(int i=0;i<=code.size();i++){
+		if(i==code.size()){
+			cout<<root->data<<endl; // reach string last char
+			return;
+		}
+		if(code[i]=='0'){ // go left
+			if(root->left==nullptr){
+				cout<<root->data;
+				root=reset;
+				root=root->left;
+			}
+			else root=root->left;
+		}
+		else{ // go right
+			if(root->right==nullptr){
+				cout<<root->data;
+				root=reset;
+				root=root->right;
+			}
+			else root=root->right;
+		}
+	}
+	return;
+}
+
 // print huffman tree result
 void huffman_result(Node* root, string code, int* alphabet){
 	cout<<"Huffman Tree:\n";
@@ -195,6 +223,9 @@ void huffman_result(Node* root, string code, int* alphabet){
 	cout<<"Huffman Code: \n";
 	string str="";
 	encode(root, str);
+	cout<<"Decoded Result: \n";
+	decode(root, code);
+	cout<<endl;
 	return;
 }
 
@@ -202,10 +233,8 @@ void huffman_result(Node* root, string code, int* alphabet){
 void huffman_coding(){
 	/*--------------------Prepararion---------------------*/
 	string str, code; // str: input string / code: huffman code
-	/* cin>>str; */
-	/* cin>>code; */
-	str="ccccccbbbaadddddddeeeeeeeeeeffff";
-	code="110011000001";
+	cin>>str;
+	cin>>code;
 	int* alphabet=new int[26]; // store letters' appearance counts
 	int symbol_count=diff_char_count(str, alphabet); // different letters' counts
 	Node* arr=new Node[symbol_count]; // create Node array
