@@ -127,6 +127,8 @@ Node* build_huffman_tree(int symbol_count, Node*& arr){
 		insert_n->left=left_n;
 		insert_n->right=right_n;
 		insert_node_arr(symbol_count, arr, insert_n);
+		delete insert_n;  // release memory
+		insert_n=nullptr;
 	}
 }
 
@@ -165,7 +167,7 @@ int level_counter(Node* root){
 	while(level_order_traversal(root, level)){
 		level++;
 	}
-	return level;
+	return level-1;
 }
 
 // encode (use to find code)
